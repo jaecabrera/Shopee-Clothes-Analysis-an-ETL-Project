@@ -7,7 +7,7 @@ import pandas as pd
 @dataclass
 class ShopeeScrape:
     """
-    This class helps generate links by concatenating IDs from our scraped data.
+    This class helps generate links by concatenating IDs from our scraped data. Hehehe
     """
     # https://shopee.ph/(!product-name)-i.(!shopid).(!productid)
     # https://shopee.ph/api/v2/item/
