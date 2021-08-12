@@ -1,2 +1,0 @@
-SAVE_DIRECTORY = "C:\cj-files\new"
-OUTPUT_DIRECTORY = "Output dir"
