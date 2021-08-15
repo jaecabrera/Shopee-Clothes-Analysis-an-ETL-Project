@@ -101,5 +101,5 @@ class Review(Base):
     neg_item_different_from_picture = Column(SmallInteger())
 
 
-# Commit metadata
+# Commit metadata to engine
 Base.metadata.create_all(engine)

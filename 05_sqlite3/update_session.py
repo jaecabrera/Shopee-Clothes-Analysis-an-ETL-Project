@@ -36,8 +36,7 @@ engine = create_engine('sqlite:///shopee.db', echo=True)
 fp = '../04_clean_files'
 
 # time factor
-yesterday = datetime.today() - timedelta(days=1)
-today = yesterday.strftime('%Y-%m-%d')
+today = datetime.today().strftime('%Y-%m-%d')
 
 # get today's files
 today_files = [[items for items in file if items.startswith(str(today))] for _, _, file in os.walk(fp)]
