@@ -1,14 +1,15 @@
 import scrapy
 import json
 import re
+import time
 import pathlib
 from scrapy.crawler import CrawlerRunner
 from twisted.internet import reactor, defer
 from scrapy.utils.log import configure_logging
-
+from scrapy.utils.project import get_project_settings
 
 save_path = '../extracted_files/%(time)s_product(DIRTY).csv'
-settings = dict(
+project_settings = dict(
     # BEGIN: scrapy spider settings
     BOT_NAME='clothes',
     SPIDER_MODULES=['clothes.spiders'],
@@ -43,9 +44,7 @@ settings = dict(
     },
     # RANDOM_UA_PER_PROXY=True,
 
-    # FEED EXPORT
-    FEEDS={pathlib.PureWindowsPath(save_path): {
-        'format': 'csv'}}
+    FEEDS={pathlib.PureWindowsPath(save_path): {'format': 'csv'}}
 )
 
 code = {
@@ -71,7 +70,7 @@ url_request_appended = url_requests. \
 class ClothesSpider(scrapy.Spider):
     name = 'clothes'
     start_urls = ['https://shopee.ph/']
-    custom_settings = settings
+    custom_settings = project_settings
 
     def start_requests(self):
 
@@ -135,15 +134,15 @@ class ClothesSpider(scrapy.Spider):
             }
 
 
-main_crawl = CrawlerRunner()
-configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-
-
 @defer.inlineCallbacks
-def crawl():
+def run():
+    main_crawl = CrawlerRunner()
+    configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
     yield main_crawl.crawl(ClothesSpider)
     reactor.stop()
 
 
-crawl()
-reactor.run()
+if __name__ == '__main__':
+    run()
+    reactor.run()
+    time.sleep(0.10)

@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import warnings
-import json
 from time import ctime
 from ast import literal_eval
 from datetime import date
@@ -144,7 +143,6 @@ data.to_csv(save_dir + '/' + f'{df.time()}-product_data.csv')
 # Review Data Cleaning ---------------------------------------
 
 for item in files:
-    print(df.time())
 
     if item.startswith(df.time()) & item.endswith('review(DIRTY).json'):
         review_filepath = f'{df.filepath}\\{item}'

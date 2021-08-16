@@ -41,8 +41,5 @@ class LoadHelper:
 
         return data
 
-
-df = LoadHelper(filepath='../../extracted_files', date=None)
-print([files for files in df.data_directory()])
-
-
+# df = LoadHelper(filepath='../extracted_files', date=None)
+# print([files for files in df.data_directory()])
