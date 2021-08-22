@@ -11,7 +11,7 @@ from scrapy.utils.log import configure_logging
 TODAY = datetime.now().strftime("%Y-%m-%d")
 
 # Links/Response data
-input_data = pd.read_csv(f'../generated_links/{TODAY}_links(BASE).csv')
+input_data = pd.read_csv(f'generated_links/{TODAY}_links(BASE).csv')
 url_start_list = input_data.shop_profile_links.to_list()
 scrapy_shopee_links = {
     'START_URL_SPIDERS': ['https://shopee.ph'],
@@ -92,13 +92,13 @@ class ShopSpider(scrapy.Spider):
 # Review Process
 review = CrawlerRunner(
     settings={
-        'FEEDS': {pathlib.PureWindowsPath(f'../extracted_files/{TODAY}s_review(DIRTY).json'): {'format': 'json'}}}
+        'FEEDS': {pathlib.PureWindowsPath(f'extracted_files/{TODAY}s_review(DIRTY).json'): {'format': 'json'}}}
 )
 
 # Shop Profile Process
 shop = CrawlerRunner(
     settings={
-        'FEEDS': {pathlib.PureWindowsPath(f'../extracted_files/{TODAY}s_shop(DIRTY).json'): {'format': 'json'}}}
+        'FEEDS': {pathlib.PureWindowsPath(f'extracted_files/{TODAY}s_shop(DIRTY).json'): {'format': 'json'}}}
 )
 
 # scraper log
@@ -111,5 +111,7 @@ def crawl():
     yield shop.crawl(ShopSpider)
     reactor.stop()
 
-crawl()
-reactor.run()
+
+if __name__ == '__main__':
+    crawl()
+    reactor.run()

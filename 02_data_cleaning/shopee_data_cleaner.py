@@ -10,8 +10,8 @@ from review_cleaner.clean_r import ReviewCleaner
 warnings.filterwarnings(action='ignore')
 today = date.today()
 
-in_dir = '../extracted_files'
-save_dir = '../04_clean_files'
+in_dir = 'extracted_files'
+save_dir = '04_clean_files'
 
 # create object: LoadHelper
 df = LoadHelper(
@@ -23,7 +23,7 @@ files = [items for items in df.data_directory()]
 
 # Product Data Cleaning ---------------------------------------
 for item in files:
-
+    print(item)
     if item.startswith(df.time()) & item.endswith('.csv'):
         if 'product' in item:
             product_df = pd.read_csv(f'{df.filepath}\\{item}')
@@ -174,7 +174,7 @@ for item in files:
 
 # copy shop dataframe to var data
 data = shop_df.copy(deep=True)
-
+print(data.head())
 # drop na shops
 data.dropna(inplace=True)
 
@@ -185,7 +185,6 @@ for json_object in data.shop_data[:]:
 
 # normalize data into 1 dataframe
 shop_normalize_data = pd.json_normalize(json_list)
-shop_normalize_data.head()
 
 # get needed features
 shop_data = shop_normalize_data[[

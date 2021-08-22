@@ -1,14 +1,13 @@
+import os
 import scrapy
 import json
 import re
-import time
 import pathlib
-from scrapy.crawler import CrawlerRunner
-from twisted.internet import reactor, defer
+from scrapy.crawler import CrawlerProcess
 from scrapy.utils.log import configure_logging
-from scrapy.utils.project import get_project_settings
+import subprocess
 
-save_path = '../extracted_files/%(time)s_product(DIRTY).csv'
+save_path = 'extracted_files\\%(time)s_product(DIRTY).csv'
 project_settings = dict(
     # BEGIN: scrapy spider settings
     BOT_NAME='clothes',
@@ -44,7 +43,7 @@ project_settings = dict(
     },
     # RANDOM_UA_PER_PROXY=True,
 
-    FEEDS={pathlib.PureWindowsPath(save_path): {'format': 'csv'}}
+    FEEDS={pathlib.Path(save_path): {'format': 'csv'}}
 )
 
 code = {
@@ -134,15 +133,10 @@ class ClothesSpider(scrapy.Spider):
             }
 
 
-@defer.inlineCallbacks
-def run():
-    main_crawl = CrawlerRunner()
-    configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-    yield main_crawl.crawl(ClothesSpider)
-    reactor.stop()
-
+# run on script
+main_crawl = CrawlerProcess()
+configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
 
 if __name__ == '__main__':
-    run()
-    reactor.run()
-    time.sleep(0.10)
+    main_crawl.crawl(ClothesSpider)
+    main_crawl.start()

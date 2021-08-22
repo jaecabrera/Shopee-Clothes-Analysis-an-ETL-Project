@@ -4,14 +4,14 @@ from load.load_helper import LoadHelper
 from dataclasses import dataclass
 
 # create load helper object
-df = LoadHelper(filepath='../extracted_files', date=None)
+df = LoadHelper(filepath='extracted_files', date=None)
 files = [items for items in df.data_directory()]
 
 # date today
 today = df.time()
 
 # save filepath
-save_fp = '../generated_links'
+save_fp = 'generated_links'
 
 # find needed file
 for item in files:
@@ -58,8 +58,9 @@ class GenScript:
         dataframe['product_links'] = self.product_link
         dataframe['shop_review_links'] = self.review_links
         dataframe['image_links'] = self.image_links
-        dataframe['shop_profile_links'] = self.review_links
-        data_export = dataframe.to_csv(save_filepath + '/' + time_collect + filename)
+        dataframe['shop_profile_links'] = self.shop_profile_links
+        save_to = save_filepath + '/' + time_collect + filename
+        data_export = dataframe.to_csv(save_to, index=0)
 
         return data_export
 
