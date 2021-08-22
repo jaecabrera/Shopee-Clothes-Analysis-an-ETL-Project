@@ -4,12 +4,10 @@ from prefect import task, Flow, Task
 from prefect.schedules import IntervalSchedule
 
 
-def run_script(command, venv=virtual_env):
+def run_script(command):
     """
     :params command: Subprocess command
     """
-    # os.environ['PATH'] = venv
-    # subprocess.Popen(venv)
     subprocess.run(command)
 
 

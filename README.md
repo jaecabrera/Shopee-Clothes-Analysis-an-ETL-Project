@@ -19,25 +19,29 @@ on 5 business problems.
 Shopee has a dynamic webpage that uses json files for their system. 
 For this project we'll be dealing with flat files `.json` & `.csv`. 
 
-1. `data_collection_spiders\mainscraper.py`
+1. `01_data_collection_spiders\mainscraper.py`
   is a **scrapy basic spider** that scrapes general product information.
   such as product id, price, rating as well as other features (product variation etc.).
-  The output file will are saved at `/shopee_etl_project/extract_exports` as a flat `.csv`
+  The output file will are saved at `/extracted_files` as a flat `.csv`
   
-2. Generate response links from application `data_collection_spiders/linkgenerator/responsegen/shopee_linkgen_app.zip`.
+2. Generate response links from application `03_link_generator/ShopeeLinkGen.exe`.
   Select the extracted product file from step one and click on export links. Consequentially, it
   will then export a flat `.csv` file onto `generated links` folder. The links are use for our next scraper
   to get more information on the shop and review data.
   
-![image](https://user-images.githubusercontent.com/84308320/128824644-5b61a564-8255-461b-b19c-8477f433210d.png)
+![image](https://user-images.githubusercontent.com/84308320/129467984-1f3dccfa-1aa1-4958-8ff6-ec2b123efa38.png)
 
-3. Run the scraper for shop and review data using `data_collection_spiders/shop_profile_and_review_scraper.py`, it may
+3. Run the scraper for shop and review data using `01_data_collection_spiders/shop_profile_and_review_scraper.py`, it may
    take a little while compared to the previous scraper because of the number of reviews (50 newest reviews) per product.
-   The scraper will output 2 `.csv` files to extracted files.
+   The scraper will output two `.json` files to extracted files.
    
 ## Data Cleaning
 
-1. The only step that we have to do is to run the 2 script located at `data_cleaning/shopee_data_cleaner.py`
-   This script will output clean and trasformed data in `extract_exports` folder. And are tagged with (CLEAN).
+1. The only step that we have to do is to run the 2 script located at `02_data_cleaning/shopee_data_cleaner.py`
+   This script will output clean and trasformed data in `extracted_files` folder.
    
+## SQLite3 Database
+
+1. After the cleaning there's a sqlite database available for us to insert new data. This data will then be use for our
+   business intelligence dashboard.
 
